@@ -1,0 +1,31 @@
+CREATE TABLE dbo.users (
+user_id serial PRIMARY key,
+username varchar(50) UNIQUE NOT NULL,
+email varchar(100) UNIQUE NOT NULL,
+password varchar(16) NOT NULL,
+user_type varchar(10),
+availableTime TIMESTAMP
+);
+
+
+
+
+create table dbo.tech_stack(
+id serial primary key,
+stack varchar(100) unique not null
+)
+
+insert into dbo.tech_stack (stack) values ('JUnit')
+insert into dbo.tech_stack (stack) values ('spring')
+insert into dbo.tech_stack (stack) values ('springboot')
+insert into dbo.tech_stack (stack) values ('git')
+
+
+create table dbo.users_tech_stack(
+user_id  int not null ,
+tech_stack_id int not null,
+CONSTRAINT fk_userData FOREIGN key (user_id) REFERENCES dbo.users(user_id) ON DELETE cascade ON UPDATE
+cascade,
+CONSTRAINT fk_techstack FOREIGN key (tech_stack_id) REFERENCES dbo.tech_stack(Id) ON DELETE cascade ON UPDATE
+CASCADE
+)

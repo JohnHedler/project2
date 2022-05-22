@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 //Lombok annotations
 @Data
@@ -20,6 +23,12 @@ public class User {
     private String username;
     private String eMail;
     private String password;
+    private String user_type;
+    private Date availableTime;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<UserTechStack> techStacks = new HashSet<UserTechStack>(0);
 
     //Constructor without ID:
     public User(String username, String eMail, String password) {

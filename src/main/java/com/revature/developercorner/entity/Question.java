@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.util.Date;
 
 //Lombok annotations
 @Data
@@ -34,4 +35,5 @@ public class Question {
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
+
 }
