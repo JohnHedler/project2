@@ -3,6 +3,9 @@ package com.revature.developercorner.service;
 
 import com.revature.developercorner.data.QuestionRepository;
 import com.revature.developercorner.entity.Question;
+import com.revature.developercorner.data.UserRepository;
+import com.revature.developercorner.entity.Question;
+import com.revature.developercorner.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,31 +16,49 @@ public class QuestionService {
 
     @Autowired
     QuestionRepository questionRepository;
+  
+    public Question add_Question(Question question){
 
-    public Question addQuestion(Question question) {
         questionRepository.save(question);
         return question;
     }
 
-    public List<Question> getAll() {
+    public void delete(Long id) {
+        questionRepository.deleteById(id);
+    }
+}
+
+    public List<Question> get_All_Questions(){
         return questionRepository.findAll();
     }
 
-    public Question getById(Question question, Long id) {
-        questionRepository.findById(id).get();
-        return question;
+
+    public List<Question> get_question_custom(String flag) {
+        switch(flag){
+            case "new":
+                return questionRepository.findByDate();
+            case "old":
+                return questionRepository.findByDate();
+            default:
+                return get_All_Questions();
+        }
     }
 
-    public void updateQuestion(Question question, Long id) {
+
+    public Question get_question_by_id(Long id) {
+        return questionRepository.findById(id).get();
+    }
+
+    public Question update_question(Question question, Long id) {
         Question questionDB = questionRepository.findById(id).get();
         questionDB.setQuestion(question.getQuestion());
-        questionDB.setLanguage(question.getLanguage());
-        questionDB.setCreated_at(question.getCreated_at());
-        questionDB.setUpdated_at(question.getUpdated_at());
+        questionDB.setTime(question.getTime());
+        questionDB.setAuthor(question.getAuthor());
         questionRepository.save(questionDB);
+        return questionDB;
     }
 
-    public void delete(Long id) {
+    public void delete_question(Long id) {
         questionRepository.deleteById(id);
     }
 }
