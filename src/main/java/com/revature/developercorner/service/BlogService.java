@@ -50,7 +50,11 @@ public class BlogService {
 
     public void delete(Long id) {
         blogRepository.deleteById(id);
+<<<<<<< HEAD
     }
 
 
 }
+=======
+    }
+>>>>>>> 0bf414c76778759f259a3c44b3b5898cad6550a7
