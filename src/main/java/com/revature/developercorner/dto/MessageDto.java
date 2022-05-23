@@ -4,20 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionDto {
+public class MessageDto {
+
     private Long id;
-    private Long user_id;
-    private String language;
-    private String question;
-    private Date created_at;
-    private Date updated_at;
+    private String message;
+    private Long sender;
+    private Long recipient;
     private String error_or_success;
 
 }
-
-

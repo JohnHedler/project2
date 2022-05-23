@@ -31,8 +31,9 @@ public class BlogService {
         return blog;
     }
 
-    public void addBlog(Blog blog) {
+    public Blog addBlog(Blog blog) {
         blogRepository.save(blog);
+        return blog;
     }
 
     public void update_blog(Blog blog, Long id) {
@@ -50,5 +51,6 @@ public class BlogService {
     public void delete(Long id) {
         blogRepository.deleteById(id);
     }
+
 
 }

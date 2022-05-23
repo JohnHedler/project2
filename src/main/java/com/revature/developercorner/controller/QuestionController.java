@@ -39,7 +39,7 @@ public class QuestionController {
         questionDto.setError_or_success("SUCCESS");
         System.out.println(question);
 
-        return questionDto ;
+        return questionDto;
     }
 
     @PostMapping("/updatequestion")
@@ -59,7 +59,7 @@ public class QuestionController {
 
         System.out.println(question);
         questionDto.setError_or_success("SUCCESS");
-        return questionDto ;
+        return questionDto;
     }
 
     @PostMapping("/deletequestion")
@@ -70,14 +70,15 @@ public class QuestionController {
         return questionDto;
 
     }
+
     @GetMapping("/listquestions")
     public List listquestions(@RequestBody QuestionDto questionDto) {
         List<Question> questions = questionService.getAll();
         List questionDtolist = new ArrayList();
 
-        if ( questions != null) {
+        if (questions != null) {
             questions.forEach(question -> {
-                QuestionDto questionDto1  = new QuestionDto();
+                QuestionDto questionDto1 = new QuestionDto();
                 questionDto1.setId(question.getId());
                 questionDto1.setUser_id(question.getUser_id());
                 questionDto1.setQuestion(question.getQuestion());
@@ -85,7 +86,7 @@ public class QuestionController {
                 questionDto1.setCreated_at(question.getCreated_at());
                 questionDto1.setUpdated_at(question.getUpdated_at());
 
-                questionDtolist .add(questionDto1);
+                questionDtolist.add(questionDto1);
             });
         }
         return questionDtolist;

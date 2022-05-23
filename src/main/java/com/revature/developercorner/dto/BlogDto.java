@@ -4,20 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionDto {
+
+
+public class BlogDto {
     private Long id;
+    private String title;
+    private String content;
+    private Integer upVotes;
+    private Integer downVotes;
+    private Timestamp created_at;
+    private Timestamp updated_at;
     private Long user_id;
-    private String language;
-    private String question;
-    private Date created_at;
-    private Date updated_at;
     private String error_or_success;
-
 }
-
-
