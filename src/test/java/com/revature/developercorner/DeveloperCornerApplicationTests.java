@@ -1,7 +1,6 @@
 package com.revature.developercorner;
 
-import com.revature.developercorner.data.RoleRepository;
-import com.revature.developercorner.data.UserRepository;
+import com.revature.developercorner.data.*;
 import com.revature.developercorner.entity.*;
 import com.revature.developercorner.service.*;
 import org.junit.jupiter.api.Assertions;
@@ -9,6 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootTest
@@ -19,6 +21,21 @@ class DeveloperCornerApplicationTests {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BlogRepository blogRepository;
+
+    @Autowired
+    MessageRepository messageRepository;
+
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    TechStackRepository techStackRepository;
 
     @Autowired
     BlogService blogService;
@@ -35,35 +52,12 @@ class DeveloperCornerApplicationTests {
     @Autowired
     MessageService messageService;
 
-//    @BeforeEach
-//    public void testInitializeTables() {
-//        Role role = new Role(1L, "ADMIN");
-//        roleService.addRole(role);
-//        User user = new User("jsmith", "jmsith@gmail.com", "123", role, "morning");
-//        userService.addUser(user);
-//        user = userService.loadUserByUsername("jsmith");
-//        Question question = new Question(user.getUserId(), "Java", "How do I use Collections?", null, null);
-//        questionService.addQuestion(question);
-//        Message message = new Message("Hey, how are you?", user.getUserId(), 2L);
-//        messageService.addMessage(message);
-//        TechStack techStack = new TechStack(1L, "Java");
-//        techStackService.addTechStack(techStack);
-
-    /*========================================================================================================
-    ==========================================================================================================
-     */
-//Role role = roleService.getRoleById(1L);
-//Question question = new Question(…);
-//questionService.addQuestion(question);
-//    question = questionService.getQuestionById(2L);
-//Assertions.assertEquals(2L, question.getId();
-//Assertions.assertEquals("Java", question.getLanguage());
-//System.out.println(question.getLanguage());
-//    }
 
     /*================================================================================================================
                                                       CREATE TESTS
      ================================================================================================================*/
+
+    
     @Test
     void testAddUser() {
         Role role = new Role(1L, "ADMIN");
@@ -398,13 +392,113 @@ class DeveloperCornerApplicationTests {
 
 
      /*================================================================================================================
-                                                      OTHER TESTS
+                                                      REPOSITORY TESTS
      ================================================================================================================*/
 
 
     @Test
     void testBlogRepo(){
+        Blog blog = new Blog("Test blog", "Programming is kinda cool!", 17, 5, null, null, 1L);
+        blogRepository.save(blog);
+
+        List<Blog> allUserPosts = new ArrayList<>();
+        allUserPosts.add(blog);
+
+        Blog blog1 = new Blog("Test blog", "Programming can be cool!", 17, 6, null, null, 1L);
+        blogRepository.save(blog1);
+        allUserPosts.add(blog1);
+
+        Blog blog2 = new Blog("Test blog", "I'm having fun learning!", 15, 3, null, null, 1L);
+        blogRepository.save(blog2);
+        allUserPosts.add(blog2);
+
+        Assertions.assertEquals(allUserPosts, blogRepository.findAll());
+    }
+
+    @Test
+    void testMessageRepository(){
+        Message message = new Message("Please help me", 1L, 1L);
+        messageRepository.save(message);
+
+        List<Message> allMessages = new ArrayList<>();
+        allMessages.add(message);
+
+        Message message1 = new Message("How can I create a new class?", 1L, 1L);
+        messageRepository.save(message1);
+        allMessages.add(message1);
+
+        Message message2 = new Message("How do I approach creating my own linked list?", 1L, 1L);
+        messageRepository.save(message2);
+        allMessages.add(message2);
+
+        Assertions.assertEquals(allMessages, messageRepository.findAll());
+    }
+
+    @Test
+    void testQuestionRepository(){
+        Question question = new Question(2L, "Java", "How do I use Collections?", null, null);
+        questionRepository.save(question);
+
+        List<Question> allQuestions = new ArrayList<>();
+        allQuestions.add(question);
+
+        Question question1 = new Question(2L, "Java", "How do linked lists work?", null, null);
+        questionRepository.save(question1);
+        allQuestions.add(question1);
+
+
+        Assertions.assertEquals(allQuestions, questionRepository.findAll());
+    }
+
+    @Test
+    void testRoleRepository(){
+        Role role = new Role("Mentor");
+        roleRepository.save(role);
+
+        List<Role> allRoles = new ArrayList<>();
+        allRoles.add(role);
+
+        Role role1 = new Role("Learner");
+        roleRepository.save(role1);
+        allRoles.add(role1);
+
+
+        Assertions.assertEquals(allRoles, roleRepository.findAll());
+    }
+
+    @Test
+    void testTechStackRepository(){
+        TechStack techStack = new TechStack(2L, "Java Script");
+        techStackRepository.save(techStack);
+
+        List<TechStack> allTechStacks = new ArrayList<>();
+        allTechStacks.add(techStack);
+
+        TechStack techStack1 = new TechStack(2L, "Spring");
+        techStackRepository.save(techStack1);
+        allTechStacks.add(techStack1);
+
+
+        Assertions.assertEquals(allTechStacks, techStackRepository.findAll());
+    }
+
+    @Test
+    void testUserRepository() {
+        Role role = new Role(1L, "ADMIN");
+        roleService.addRole(role);
+        User user = new User("msmith", "msmith@gmail.com", "123", role, "evening");
+        userRepository.save(user);
+
+        List<User> allUsers = new ArrayList<>();
+        allUsers.add(user);
+
+        User user1 = new User("theBoogieMan", "BoogieMan@gmail.com", "U3", role, "evening");
+        userRepository.save(user1);
+        allUsers.add(user1);
+
+        Assertions.assertEquals(allUsers, userRepository.findAll());
 
 
     }
+
 }
